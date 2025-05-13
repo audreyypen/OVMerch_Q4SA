@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="ov_icon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+    body {
+        background-image: url('Merch.jpg'); 
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family: "Courier Prime", monospace;
+        font-weight: 400;
+        font-style: normal;
+        color: white; 
+    }
+
+    button, .btn {
+        color: white;
+        --bs-btn-bg:#7050a4;
+        --bs-btn-border-color:var(--bs-btn-bg);
+        --bs-btn-hover-bg: #603f94;
+        --bs-btn-hover-border-color:var(--bs-btn-hover-bg);
+        --bs-btn-active-bg:var(--bs-btn-hover-bg);
+        --bs-btn-active-border-color:var(--bs-btn-hover-bg);
+        text-align: center;
+        border-radius: 30px;
+        padding:10px;
+    }
+
+
+    .navbar .nav-link,
+    .navbar .navbar-brand {
+        color: white !important; 
+    }
+
+    .navbar .nav-link:hover,
+    .navbar .navbar-brand:hover {
+        color: #ccc !important; 
+    }
+    h3, .navbar-brand {
+          font-family: "Cabin Sketch", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+        font-size:50px;
+    }
+    .glow{
+            text-shadow: rgb(255, 255, 255) 0px 0px 5px;
+    }
+
+    .nav-item{
+        font-size: x-large;
+    }
+
+    h3{
+        text-align: center;
+                    text-shadow: rgb(255, 255, 255) 0px 0px 15px;
+
+        
+    }
+    .card{
+        color:white;
+        --bs-card-bg: Transparent;
+        --bs-card-border-color: transparent;
+        text-align: center;
+    }
+    .bold{
+        font-weight: bold;
+    }
+
+    .btn-warning{
+        color:#7050a4;
+        --bs-btn-bg:transparent;
+        --bs-btn-border-color:transparent;
+        --bs-btn-hover-bg: transparent;
+        --bs-btn-hover-border-color:transparent;
+        --bs-btn-active-bg:transparent;
+        --bs-btn-active-border-color:transparent;
+        font-size: x-large;
+    }
+
+    .checkout{
+        font-size: xx-large;
+        font-weight: bold;
+        min-width: 100%;
+    }
+
+</style>
+
+
+    <script>
+        let cart = [];
+
+        function addCart(productName, productPrice) {
+            cart.push({ prod_name: productName, prod_price: productPrice });
+            updateCart();
+        }
+        function updateCart(){
+            const cartList = document.getElementById("cartlist");
+            cartList.innerHTML = "";
+            let total = 0;
+
+        cart.forEach((item, index) => {
+            const listItem = document.createElement("li");
+            listItem.className = "list-group-item bold d-flex align-items-center justify-content-between";
+            listItem.textContent = `${item.prod_name} - $${item.prod_price}`;
+            total += parseFloat(item.prod_price);
+
+            const deleteButton = document.createElement("button");
+            deleteButton.className = "btn btn-warning btn-sm d-flex align-items-center";
+            deleteButton.onclick = () => deleteItem(index);
+            const icon = document.createElement("i");
+            icon.className = "fas fa-trash-alt";
+            deleteButton.appendChild(icon);
+            listItem.appendChild(deleteButton);
+            cartList.appendChild(listItem);
+        });
+
+            document.getElementById("totalCost").textContent = `Total: $${total.toFixed(2)}`;
+            totalCost.className = "bold h4 my-3";
+            document.getElementById("cust_order").value = JSON.stringify(cart);
+        }
+
+        function deleteItem(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function placeOrder() {
+            const name = document.getElementById("cust_name").value;
+            const address = document.getElementById("cust_addr").value;
+            const email = document.getElementById("cust_email").value;
+
+            if (!name || !address || !email) {
+                alert("Please fill in all fields!");
+                return false;
+            }
+        }
+
+        function clearCart() {
+            cart=[];
+            updateCart();
+        }
+    </script>
+    <title>Products</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="Index.html">OLIVIA RODRIGO</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="Index.html">home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link glow active" aria-current="page" href="Products.html">products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="About.html">about</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <div class="container pt-5">
+
+        <div class="row">
+            <div class="col-sm-9 pe-4">
+    
+                <div class="row mb-4">
+                    <h3 class="mb-3">TOPS</h3>
+    
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <img src="greytop.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">ONO Crewneck</h5>
+                              <h6 class="card-text">30$</h6>
+                              <button onclick="addCart('ONO Crewneck', 30)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+    
+                    <div class="col-sm-4">
+                        <div class="card" >
+                            <img src="blacktop.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">SHGL in vintage black</h5>
+                              <h6 class="card-text">20$</h6>
+                              <button onclick="addCart('SHGL in vintage black', 20)" class="btn btn-primary">  add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+    
+                    <div class="col-sm-4">
+                        <div class="card" >
+                            <img src="blacktop2.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">Olivia Rodrigo live T-shirt</h5>
+                              <h6 class="card-text">25$</h6>
+                              <button onclick="addCart('Olivia Rodrigo live T-shirt', 25)" class="btn btn-primary">  add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <img src="purpletop.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">GUTS dateback longsleeve in purple</h5>
+                              <h6 class="card-text">20$</h6>
+                              <button onclick="addCart('GUTS dateback longsleeve in purple', 20)" class="btn btn-primary">  add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+    
+                    <div class="col-sm-4">
+                        <div class="card" >
+                            <img src="whitetop.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">At a festival near you crop baby tee</h5>
+                              <h6 class="card-text">25$</h6>
+                              <button onclick="addCart('At a festival near you crop baby tee', 25)" class="btn btn-primary">  add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+    
+                    <div class="col-sm-4">
+                        <div class="card" >
+                            <img src="creamtop.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">Spills her guts live in ivory</h5>
+                              <h6 class= "card-text">20$ </h6>
+                               <button onclick="addCart('Spills her guts live in ivory', 20)" class="btn btn-primary">  add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+                </div>
+    
+                <div class="row mb-4 my-5">
+                    <h3 class="mb-3">ACCESSORIES</h3>
+    
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <img src="tote1.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">Butterfly tote in purple</h5>
+                              <h6 class="card-text">25$</h6>
+                              <button onclick="addCart('Butterfly tote in purple', 25)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+    
+                    <div class="col-sm-4">
+                        <div class="card" >
+                            <img src="tote2.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">LAAFNY near you tote</h5>
+                              <h6 class="card-text">20$</h6>
+                              <button onclick="addCart('LAAFNY near you tote', 20)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+    
+                    <div class="col-sm-4">
+                        <div class="card" >
+                            <img src="charm.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">megaphone charm</h5>
+                              <h6 class="card-text">16$</h6>
+                              <button onclick="addCart('megaphone charm', 16)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <img src="cap.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">GUTS live world tour hat</h5>
+                              <h6 class="card-text">30$</h6>
+                              <button onclick="addCart('GUTS live world tour hat', 30)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+    
+                    <div class="col-sm-4">
+                        <div class="card" >
+                            <img src="megaphone.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">GUTS megaphone</h5>
+                              <h6 class="card-text">40$</h6>
+                              <button onclick="addCart('GUTS megaphone', 40)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+    
+                    <div class="col-sm-4">
+                        <div class="card" >
+                            <img src="beanie.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">GUTS world tour beanie</h5>
+                              <h6 class="card-text">30</h6>
+                              <button onclick="addCart('GUTS world tour beanie', 30)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+                </div>
+    
+                <div class="row mb-4 my-5">
+                    <h3 class="mb-3">VINYL</h3>
+    
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <img src="v1.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">TBOSAS Vinyl - Classic Edition</h5>
+                              <h6 class="card-text">30$</h6>
+                              <button onclick="addCart('TBOSAS Vinyl - Classic Edition', 30)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+    
+                    <div class="col-sm-4">
+                        <div class="card" >
+                            <img src="v2.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">SOUR clear crystal vellum vinyl</h5>
+                              <h6 class="card-text">25$</h6>
+                              <button onclick="addCart('SOUR cear srystal vellum vinyl', 25)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+    
+                    <div class="col-sm-4">
+                        <div class="card" >
+                            <img src="v3.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">SOUR standard black vinyl</h5>
+                              <h6 class="card-text">25$</h6>
+                              <button onclick="addCart('SOUR standard vinyl', 25)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <img src="v4.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">U white vinyl</h5>
+                              <h6 class="card-text">30$</h6>
+                              <button onclick="addCart('U white vinyl', 30)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+    
+                    <div class="col-sm-4">
+                        <div class="card" >
+                            <img src="v5.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">S purple vinyl</h5>
+                              <h6 class="card-text">30$</h6>
+                              <button onclick="addCart('S purple vinyl', 30)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+    
+                    <div class="col-sm-4">
+                        <div class="card" >
+                            <img src="v6.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">Signed GUTS black vinyl</h5>
+                              <h6 class="card-text">35$</h6>
+                              <button onclick="addCart('Signed GUTS 180 g black vinyl', 35)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+                </div>
+    
+                <div class="row mb-4 my-5">
+                    <h3 class="mb-3">POSTERS</h3>
+    
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <img src="p1.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">live tank poster</h5>
+                              <h6 class="card-text">20$</h6>
+                              <button onclick="addCart('live tank poster', 20)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+    
+                    <div class="col-sm-4">
+                        <div class="card" >
+                            <img src="p2.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">tour tank poster</h5>
+                              <h6 class="card-text">25$</h6>
+                              <button onclick="addCart('tour tank poster', 25)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+    
+                    <div class="col-sm-4">
+                        <div class="card" >
+                            <img src="p3.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">GUTS world tour poster</h5>
+                              <h6 class="card-text">25$</h6>
+                              <button onclick="addCart('GUTS world tour poster', 25)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <img src="p4.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">GUTS world tour purple poster</h5>
+                              <h6 class="card-text">20$</h6>
+                              <button onclick="addCart('GUTS world tour purple poster', 20)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+    
+                    <div class="col-sm-4">
+                        <div class="card" >
+                            <img src="p5.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">GUTS world tour admat poster</h5>
+                              <h6 class="card-text">20$</h6>
+                              <button onclick="addCart('GUTS world tour admat poster', 20)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+    
+                    <div class="col-sm-4">
+                        <div class="card" >
+                            <img src="p6.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">GUTS olivia rodrigo AAB poster</h5>
+                              <h6 class="card-text">25$</h6>
+                              <button onclick="addCart('GUTS olivia rodrigo AAB poster', 25)" class="btn btn-primary"> add to cart</button>
+                            </div>
+                        </div>        
+                    </div>
+                </div>
+    
+    
+    
+            </div>
+            <div class="col-sm-3">
+                <h3>Cart</h3>
+                <ul id="cartlist" class="list-group"></ul>
+                <p id=totalCost class="bold h4 my-3">Total: $0.00</p>
+                <button onclick="clearCart()" class="btn btn-danger mb-3">remove all items</button>
+    
+    
+                <form action="http://47.129.9.35/cs3/checkout.php" method="post" onsubmit="return placeOrder()">
+                    <input type="hidden" id="cust_order" name="cust_order">
+                    Name: <input type="text" placeholder="Olivia Rodrigo" class="form-control mb-2" id="cust_name" name="cust_name"><br>
+                    Address: <input type="text" placeholder="1 Sour Blvd, Gutsville, USA" class="form-control mb-2" id="cust_addr" name="cust_addr"><br>
+                    Email: <input type="text" placeholder="spillyourguts@xxx.com" class="form-control mb-2" id="cust_email" name="cust_email"><br>
+                    <button type="submit" class="checkout btn btn-success">checkout</button>
+            </form>
+            </div>        
+        </div>
+    
+    </div>
+</body>
+</html>
